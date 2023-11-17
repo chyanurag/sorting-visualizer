@@ -4,6 +4,23 @@
 #include <SFML/Window.hpp>
 using namespace sf;
 
+std::vector<std::vector<int>> selectionSort(std::vector<int>& v){
+	std::vector<std::vector<int>> result;
+	for(int i = 0; i < v.size(); i++){
+		int curr = v[i];
+		int idx = i;
+		for(int j = i + 1; j < v.size(); j++){
+			if(v[j] < v[idx]){
+				idx = j;
+			}
+		}
+		v[i] = v[idx];
+		v[idx] = curr;
+		result.push_back(v);
+	}
+	return result;
+}
+
 std::vector<std::vector<int>> bubbleSort(std::vector<int>& v){
 	std::vector<std::vector<int>> result;
 	for(int i = 0; i < v.size() - 1; i++){
@@ -44,7 +61,7 @@ int main(){
 	int start = clock.getElapsedTime().asSeconds();
 	int idx = 0;
 	std::vector<int> v = {3, 4, 1, 5, 2, 7, 9, 10, 5, 3, 8, 12, 15, 20, 7, 9};
-	auto result = bubbleSort(v);
+	auto result = selectionSort(v);
 	while(window.isOpen()){
 		Event ev;
 		while(window.pollEvent(ev)){

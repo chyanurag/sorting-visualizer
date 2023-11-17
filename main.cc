@@ -27,7 +27,7 @@ void draw_bars(std::vector<int> bars, RenderWindow& window){
 		}
 	}
 	const float BAR_HEIGHT = window.getSize().y/max;
-	const float BAR_WIDTH = window.getSize().x/(bars.size());
+	const float BAR_WIDTH = window.getSize().x/(bars.size()+1);
 	for(int i = 0; i < bars.size(); i++){
 		RectangleShape bar(Vector2f(BAR_WIDTH, bars[i]*BAR_HEIGHT));
 		bar.setFillColor(Color::Green);
@@ -43,7 +43,7 @@ int main(){
 	Clock clock;
 	int start = clock.getElapsedTime().asSeconds();
 	int idx = 0;
-	std::vector<int> v = {3, 4, 1, 5, 2, 7, 9};
+	std::vector<int> v = {3, 4, 1, 5, 2, 7, 9, 10, 5, 3, 8, 12, 15, 20, 7, 9};
 	auto result = bubbleSort(v);
 	while(window.isOpen()){
 		Event ev;

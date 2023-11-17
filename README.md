@@ -5,7 +5,7 @@
 ## for Arch Users
 ```sudo pacman -S make```
 ## for installing sfml on debian/ubuntu
-```sudo apt install libsfml```
+```sudo apt install libsfml-dev```
 ## for Arch,
 ```sudo pacman -S sfml```
 ## then run

@@ -1,5 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <random>
+#include <chrono>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 using namespace sf;
@@ -60,7 +63,12 @@ int main(){
 	Clock clock;
 	int start = clock.getElapsedTime().asSeconds();
 	int idx = 0;
-	std::vector<int> v = {3, 4, 1, 5, 2, 7, 9, 10, 5, 3, 8, 12, 15, 20, 7, 9};
+	std::vector<int> v;
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	for(int i = 1; i <= 100; i++){
+		v.push_back(i);
+	}
+	std::shuffle(v.begin(), v.end(), std::default_random_engine(seed));
 	auto result = selectionSort(v);
 	while(window.isOpen()){
 		Event ev;

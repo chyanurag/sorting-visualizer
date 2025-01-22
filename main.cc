@@ -11,8 +11,8 @@ std::vector<std::vector<int>> selectionSort(std::vector<int>& v){
 	std::vector<std::vector<int>> result;
 	for(int i = 0; i < v.size(); i++){
 		int curr = v[i];
-		int idx = i;
-		for(int j = i + 1; j < v.size(); j++){
+		int idx = i; 
+        for(int j = i + 1; j < v.size(); j++){
 			if(v[j] < v[idx]){
 				idx = j;
 			}
@@ -47,25 +47,24 @@ void draw_bars(std::vector<int> bars, RenderWindow& window){
 		}
 	}
 	const float BAR_HEIGHT = window.getSize().y/max;
-	const float BAR_WIDTH = window.getSize().x/(bars.size()+1);
+	const float BAR_WIDTH = window.getSize().x/(bars.size());
 	for(int i = 0; i < bars.size(); i++){
 		RectangleShape bar(Vector2f(BAR_WIDTH, bars[i]*BAR_HEIGHT));
-		bar.setFillColor(Color::Green);
-		bar.setOutlineColor(Color::Red);
-		bar.setOutlineThickness(5.f);
-		bar.setPosition(i*(BAR_WIDTH+10.f), (max-bars[i])*BAR_HEIGHT);
+		bar.setFillColor(Color::White);
+		bar.setPosition(i*BAR_WIDTH, (max-bars[i])*BAR_HEIGHT);
 		window.draw(bar);
 	}
 }
 
 int main(){
-	RenderWindow window(VideoMode(1920, 1080), "Game", Style::Fullscreen);
+	RenderWindow window(VideoMode(1920, 1080), "Sorting Visualiser", sf::Style::Fullscreen);
 	Clock clock;
-	int start = clock.getElapsedTime().asSeconds();
+	float prev = clock.getElapsedTime().asSeconds();
 	int idx = 0;
 	std::vector<int> v;
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	for(int i = 1; i <= 100; i++){
+    int barNums = 200;
+	for(int i = 1; i <= barNums; i++){
 		v.push_back(i);
 	}
 	std::shuffle(v.begin(), v.end(), std::default_random_engine(seed));
@@ -80,12 +79,13 @@ int main(){
 			}
 		}
 		window.clear();
-		if(clock.getElapsedTime().asSeconds() - start > 1.f){
-			start = clock.getElapsedTime().asSeconds();
+        float curr = clock.getElapsedTime().asSeconds();
+		if(curr - prev >= .01f){
+			prev = curr;
 			if(idx < result.size() - 1){
 				idx++;
 			}
-		}
+        }
 		draw_bars(result[idx], window);
 		window.display();
 	}
